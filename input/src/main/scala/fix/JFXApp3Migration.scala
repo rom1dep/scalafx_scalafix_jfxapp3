@@ -1,6 +1,6 @@
 /*
 rule = JFXApp3Migration
-*/
+ */
 package fix
 
 import scalafx.application.JFXApp
@@ -14,7 +14,22 @@ object JFXAppDemo extends JFXApp {
   stage = new PrimaryStage {
     scene = new Scene {
       content = new HBox {
-        children = Seq( new Text("Hello World!")  )
+        children = Seq(new Text("Hello World!"))
+      }
+    }
+  }
+
+  private def aFunction(): Unit = {
+    2 + 2
+  }
+}
+
+object JFXAppDemo2 extends JFXApp {
+  private val priv: String = "private!"
+  stage = new JFXApp.PrimaryStage {
+    scene = new Scene {
+      content = new HBox {
+        children = Seq(new Text("Hello World!"))
       }
     }
   }

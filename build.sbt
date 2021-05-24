@@ -29,7 +29,7 @@ lazy val osName = System.getProperty("os.name") match {
   case n if n.startsWith("Linux")   => "linux"
   case n if n.startsWith("Mac")     => "mac"
   case n if n.startsWith("Windows") => "win"
-  case _ => throw new Exception("Unknown platform!")
+  case _                            => throw new Exception("Unknown platform!")
 }
 
 // Add dependency on JavaFX libraries, OS dependent
@@ -37,19 +37,19 @@ lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media", "s
 
 lazy val rules = project.settings(
   moduleName := "scalafix",
-  libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion,
+  libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion
 )
 
 lazy val input = project.settings(
   publish / skip := true,
-  libraryDependencies ++= javaFXModules.map(m =>
-    "org.openjfx" % s"javafx-$m" % "16" classifier osName
-  ),
-  libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R24",
+  libraryDependencies ++= javaFXModules.map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName),
+  libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R24"
 )
 
 lazy val output = project.settings(
-  publish / skip := true
+  publish / skip := true,
+  libraryDependencies ++= javaFXModules.map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName),
+  libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R24"
 )
 
 lazy val tests = project
@@ -63,7 +63,7 @@ lazy val tests = project
     scalafixTestkitInputSourceDirectories :=
       (input / Compile / unmanagedSourceDirectories).value,
     scalafixTestkitInputClasspath :=
-      (input / Compile / fullClasspath).value,
+      (input / Compile / fullClasspath).value
   )
   .dependsOn(rules)
   .enablePlugins(ScalafixTestkitPlugin)

@@ -12,7 +12,23 @@ object JFXAppDemo extends JFXApp3 {
     stage = new PrimaryStage {
       scene = new Scene {
         content = new HBox {
-          children = Seq( new Text("Hello World!") )
+          children = Seq(new Text("Hello World!"))
+        }
+      }
+    }
+    def aFunction(): Unit = {
+      2 + 2
+    }
+  }
+}
+
+object JFXAppDemo2 extends JFXApp3 {
+  override def start(): Unit = {
+    val priv: String = "private!"
+    stage = new JFXApp3.PrimaryStage {
+      scene = new Scene {
+        content = new HBox {
+          children = Seq(new Text("Hello World!"))
         }
       }
     }
