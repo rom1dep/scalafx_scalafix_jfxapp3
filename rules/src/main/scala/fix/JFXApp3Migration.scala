@@ -5,9 +5,6 @@ import scala.meta._
 
 class JFXApp3Migration extends SemanticRule("JFXApp3Migration") {
   override def fix(implicit doc: SemanticDocument): Patch = {
-    //    println("Tree.syntax: " + doc.tree.syntax)
-    //    println("Tree.structure: " + doc.tree.structure)
-    println("Tree.structureLabeled: " + doc.tree.structureLabeled)
     doc.tree.collect {
       // Imports
       case jfxapp@Importee.Name(Name.Indeterminate("JFXApp")) => Patch.replaceTree(jfxapp, "JFXApp3")
@@ -30,8 +27,9 @@ class JFXApp3Migration extends SemanticRule("JFXApp3Migration") {
                   decltpe = Some(Type.Name("Unit")),
                   body = Term.Block(stats = st.collect {
                     // Drop private accessors
-                    case defn@Defn.Val(List(Mod.Private(_)), _, _, _) => defn.copy(mods = List.empty)
-                    case n                                            => n
+                    case privVal@Defn.Val(List(Mod.Private(_)), _, _, _) => privVal.copy(mods = List.empty)
+                    case privDef@Defn.Def(List(Mod.Private(_)), _, _, _, _, _) => privDef.copy(mods = List.empty)
+                    case n                                               => n
                   })
                 )
               )

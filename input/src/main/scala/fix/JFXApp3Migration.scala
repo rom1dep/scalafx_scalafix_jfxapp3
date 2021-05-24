@@ -18,4 +18,8 @@ object JFXAppDemo extends JFXApp {
       }
     }
   }
+
+  private def aFunction(): Unit = {
+    2 + 2
+  }
 }

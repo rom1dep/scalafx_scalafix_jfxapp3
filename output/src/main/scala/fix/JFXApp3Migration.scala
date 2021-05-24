@@ -16,5 +16,8 @@ object JFXAppDemo extends JFXApp3 {
         }
       }
     }
+    def aFunction(): Unit = {
+      2 + 2
+    }
   }
 }
